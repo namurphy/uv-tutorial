@@ -127,10 +127,13 @@ and to fix mistakes.
 Let's initialize a project with `uv`:
 
 ```bash
-uv init crane
+uv init crane --python 3.13
 ```
+Specifying the version of Python with `--python 3.13` isn't strictly necessary,
+but ensures that we're using the most recent version of Python
+until the next one is released in October 2025.
 
-and enter the directory with: 
+Let's enter the `crane/` directory with: 
 
 ```bash
 cd crane
@@ -170,13 +173,13 @@ description = "A sample project to learn uv"
 ```
 
 > [!NOTE]
-> [TOML] is a file format standard intended for use in configuration files.
+> [**TOML**] is a file format standard intended for use in configuration files.
 > TOML files include
 >
-> - _Key-value pairs_, like `name = "crane"`,
-> - _Tables_, like `[project]`, which are collections of key-value pairs,
-> - Arrays, like `dependencies = []`, and
-> - Comments, which start with a `#`.
+> - **Key-value pairs**, like `name = "crane"`,
+> - **Tables**, like `[project]`, which are collections of key-value pairs,
+> - **Arrays**, like `dependencies = []`, and
+> - **Comments**, which start with a `#`.
 
 > [!TIP]
 > The Python Packaging User Guide describes
@@ -193,7 +196,7 @@ if __name__ == "__main__":
     main()
 ```
 
-When we execute `main.py` as a script, it will print out a line saying hello.
+Executing `main.py` as a script prints out a line saying hello. 
 
 ```bash
 python main.py
@@ -262,7 +265,7 @@ Using `uv add` also updated the environments contained in `.venv/` and `uv.lock`
 > Specifying the exact versions of dependencies makes it significantly
 > more likely that the script will continue to work in the future.
 
-If we wanted to use an _exact_ version of astropy, we could do:
+To use an _exact_ version of astropy, run:
 
 ```bash
 uv add astropy==7.0.1
@@ -295,11 +298,64 @@ and then run it with
 uv run main.py
 ```
 
+We can expand `main.py` for a research project, 
+such as doing data analysis for an experiment. 
+
 > [!TIP]
 > For cleaner code, write _short functions_
-> that do _one_ thing
-> with _no side effects_.
+> that _do one thing_
+> with _no side effects_! ✅️
+
+## Creating a Python package with `uv` (if time)
+
+Next let's create a Python **package**, analogous to NumPy.
+Let's navigate up a directory 
+so that we're not in a pre-existing project directory.
+
+```bash
+cd ..
+```
+
+Let's use `uv init` with the `--library` option to create `cranepy`:
+
+```bash
+uv init cranepy --library
+```
+
+And then see what's in the new `cranepy/` directory:
+
+```bash
+cd cranepy
+ls
+```
+
+There are still `README.md`, `.python-version`, and `pyproject.toml` files.
+Instead of `main.py`, the code is now in `src/cranepy`.
+
+```bash
+ls src/cranepy
+```
+
+This directory contains a `__init__.py` file, which is the file that 
+needs to be present for Python to treat a directory like a Python package. 
+`__init__.py` files typically contain initialization code.
+
+```bash
+cat src/cranepy/__init__.py
+```
+
+We can now install `cranepy`!
+
+```bash
+uv pip install cranepy
+```
+If we run `python`, we can now import it!
+
+```pycon
+>>> import cranepy
+>>> cranepy.hello()
+```
 
 [markdown]: https://www.markdownguide.org
-[toml]: https://toml.io/en
+[**toml**]: https://toml.io/en
 [`uv`]: https://astral.sh/uv
