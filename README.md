@@ -63,9 +63,8 @@ which python
 Let's [create a virtual environment](https://docs.astral.sh/uv/pip/environments)!
 
 ```bash 
-uv venv 
+uv venv
 ```
-
 Let's use `ls` to list the contents of the directory. 
 We need to use the `-A` flag to show everything, 
 since files and directories starting with a dot are hidden by default. 
@@ -75,66 +74,88 @@ ls -A
 ```
 
 There is a new directory called `.venv/` which contains the virtual environment.
-
 Let's check which `python` executable we're using:
 
 ```bash
 which python
 ```
-This is still the same `python`
-
-
-
-The output of `uv venv` tells us the command to _activate_ a virtual environment.
-For Unix, this is
+This is still the same `python` as before because 
+we still need to _activate_ the virtual environment.
+Fortunately, the output of `uv venv` provides the command 
+to activate the virtual environment. 
+For bash, the command is:
 
 ```bash
 source .venv/bin/activate
 ```
 
-Now if we do
+Now let's see which `python` we are using:
 
 ```bash
 which python
 ```
+Because we activated the environment, the `python` we are using is
+located at `.venv/bin/python` relative to the current directory. 
 
-we see that we are using the version of Python located in the `.venv` subdirectory.
+> [!IMPORTANT]
+> The command to activate a virtual environment must be run 
+> every time we open a terminal.
 
-To install a package into the virtual environment, use
+> [!TIP]
+> To avoid having to manually activate our default environment,
+> we can include the command in the configuration file 
+> for the shell we are using (i.e., `.bashrc` for `bash` and   
+> `.zshrc` for `zsh` in the home directory).
+> I'm happy to help with this after!
 
+To install a package into the current virtual environment, 
+use `uv pip`:
+   
 ```bash
 uv pip install plasmapy
 ```
 
+> [!NOTE]
+> Most `pip` commands will still work if we change `pip` → `uv pip`.
+
 ## Why create Python scripts and packages?
 
+Creating scripts and projects helps us keep our work organized
+while making it significantly easier to reproduce our work
+and to fix mistakes.
+
+Let's initialize a project with `uv`:
+
 ```bash
-uv init my-project
-cd my-project
-ls
+uv init crane
 ```
 
-This command will create four files:
+and enter the directory with: 
+
+```bash
+cd crane
+```
+
+This command creates four files:
 
 - `main.py` ← main Python project file
 - `pyproject.toml` ← main configuration file
 - `.python-version` ← which is currently `3.13`
-- `README.md` ← [Markdown] file
+- `README.md` ← a [Markdown] file that we can use for documentation
 
 Let's look at `pyproject.toml`,
-which is the main _configuration file_ of a Python project.
-Let's use the `cat` command (short for concatenate)
-to see the contents of `pyproject.toml`:
+the main _configuration file_ of a Python project, 
+by using `cat` (which is short for "concatenate"). 🐈
 
 ```bash
 cat pyproject.toml
 ```
 
-to show the contents of the file:
+The file contains:
 
 ```toml
 [project]
-name = "my-project"
+name = "crane"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -152,8 +173,8 @@ description = "A sample project to learn uv"
 > [TOML] is a file format standard intended for use in configuration files.
 > TOML files include
 >
-> - _Key-value pairs_, like `name = "my-project"`,
-> - _Tables_, like `[project]`, which can contain multiple key-value pairs,
+> - _Key-value pairs_, like `name = "crane"`,
+> - _Tables_, like `[project]`, which are collections of key-value pairs,
 > - Arrays, like `dependencies = []`, and
 > - Comments, which start with a `#`.
 
@@ -161,29 +182,33 @@ description = "A sample project to learn uv"
 > The Python Packaging User Guide describes
 > [how to write a `pyproject.toml` file](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/).
 
-Next let's look at the contents of `main.py`:
+Let's look at the contents of `main.py`:
 
 ```python
 def main():
-    print("Hello from my-project!")
+    print("Hello from crane!")
 
 
 if __name__ == "__main__":
     main()
 ```
 
-When we execute this file as a script, it will print out a line saying hello.
+When we execute `main.py` as a script, it will print out a line saying hello.
+
+```bash
+python main.py
+```
 
 > [!NOTE]
 > The `if __name__ == "__main__"` block contains
-> code that will run when the file is run as a script.
-> This block will not run when the file is imported in Python.
+> code that will be run when the file is _run as a script_.
+> This block will not be run when the file is _imported_ in Python.
 
 > [!TIP]
 > Creating a `main()` function means that we can run it from
 > _within Python_, not just when the file is executed as a script.
 
-If we have already installed Python, we could run it with
+If we have already installed Python, we can execute the script with:
 
 ```bash
 python main.py
@@ -254,12 +279,14 @@ Now let's modify `main()` in `main.py` to print
 the number of teaspoons in 1 barn · megaparsec:
 
 ```python
-import astropy.units as u
+from astropy import units
 
 
 def main():
-    volume = 1 * u.barn * u.Mpc
-    print(volume.to(u.imperial.tsp))
+    volume = 1 * units.barn * units.Mpc
+    print(
+        volume.to(units.imperial.tsp)
+    )
 ```
 
 and then run it with
