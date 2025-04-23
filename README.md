@@ -63,8 +63,12 @@ which python
 Let's [create a virtual environment](https://docs.astral.sh/uv/pip/environments)!
 
 ```bash 
-uv venv
+uv venv --python 3.13
 ```
+Specifying the version of Python with `--python 3.13` isn't necessary,
+but ensures that we're using the most recent version of Python
+until the next one is released in October 2025.
+
 Let's use `ls` to list the contents of the directory. 
 We need to use the `-A` flag to show everything, 
 since files and directories starting with a dot are hidden by default. 
@@ -127,11 +131,8 @@ and to fix mistakes.
 Let's initialize a project with `uv`:
 
 ```bash
-uv init crane --python 3.13
+uv init crane
 ```
-Specifying the version of Python with `--python 3.13` isn't strictly necessary,
-but ensures that we're using the most recent version of Python
-until the next one is released in October 2025.
 
 Let's enter the `crane/` directory with: 
 
