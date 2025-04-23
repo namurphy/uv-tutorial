@@ -1,27 +1,27 @@
 # Creating Python scripts and packages with `uv`
 
-In this session, 
+In this session,
 we will learn how to create Python scripts and packages with [`uv`]:
 an exciting new Python package installer and manager.
 
 Historically, the Python package management landscape has been quite fragmented,
 partially because Python is a 30+ old language.
-The goal of `uv` is to create a unified toolchain 
-for installing and packaging Python packages 
+The goal of `uv` is to create a unified toolchain
+for installing and packaging Python packages
 (including as a stand-in replacement for `pip`).
 Even though `uv` was first released in February 2024,
 it has been rapidly adopted by people and projects across the community.
 
-The creators of `uv` have also worked hard to grow psychological safety 
-in the `uv` community.   
+The creators of `uv` have also worked hard to grow psychological safety
+in the `uv` community.
 
-Here we will go through a few of the most useful parts of `uv`.   
+Here we will go through a few of the most useful parts of `uv`.
 
 ## Installing `uv`
 
 These [instructions](https://docs.astral.sh/uv/getting-started/installation/)
 describe how to install `uv`.
-To test that `uv` is installed correctly, open a terminal and type `uv version`.  
+To test that `uv` is installed correctly, open a terminal and type `uv version`.
 `uv` can be used in Unix-style terminals as well as Powershell.
 
 ## Creating and managing Python environments
@@ -30,65 +30,76 @@ When using Python, we frequently install packages like Astropy
 using a command like `pip install astropy`.
 By default, this command will install Astropy into the default Python installation.
 This typically works well enough most of the time,
-but sometimes we'll run into a _package conflict_.  
+but sometimes we'll run into a _package conflict_.
 
-Suppose PlasmaPy version `2024.10.0` requires `astropy < 7.0.0`, 
-but  SunPy `6.1.1` requires `astropy >= 7.0.0`.
+Suppose PlasmaPy version `2024.10.0` requires `astropy < 7.0.0`,
+but SunPy `6.1.1` requires `astropy >= 7.0.0`.
 These versions of PlasmaPy and SunPy
 cannot be installed simultaneously!
-The way to get around this is to use virtual environments.  
+The way to get around this is to use virtual environments.
 
-A **virtual environment** is 
-"an isolated space where you can work on your Python projects, 
+A **virtual environment** is
+"an isolated space where you can work on your Python projects,
 separately from your system-installed Python."
 To resolve the above problem, we can create a virtual environment
 to work with SunPy and a separate virtual environment to work with PlasmaPy.
 
 Let's create a temporary workspace.
+
 ```bash
 mkdir crane_osrse
 cd crane_osrse
 ```
 
-Let's use the `which` command in Unix to see 
+Let's use the `which` command in Unix to see
 which installation of Python we are currently using.
+
 ```bash
 which python
 ```
+
 > [!TIP]
-> In Unix terminals, the `which` command tells us 
+> In Unix terminals, the `which` command tells us
 > where different executable files are located.
 
 To create a virtual environment, we can use the command
+
 ```bash
 uv venv
 ```
-If we use `ls`, we see that a new virtual environment 
+
+If we use `ls`, we see that a new virtual environment
 is located in the (possibly hidden) `.venv/` subdirectory.
 If we try
+
 ```bash
 which python
 ```
-again, then we see that we're still using the default Python.  
+
+again, then we see that we're still using the default Python.
 
 The output of `uv venv` tells us the command to _activate_ a virtual environment.
 For Unix, this is
+
 ```bash
 source .venv/bin/activate
 ```
+
 Now if we do
+
 ```bash
 which python
 ```
+
 we see that we are using the version of Python located in the `.venv` subdirectory.
 
 To install a package into the virtual environment, use
+
 ```bash
 uv pip install plasmapy
 ```
 
 ## Why create Python scripts and packages?
-
 
 ```bash
 uv init my-project
@@ -97,19 +108,23 @@ ls
 ```
 
 This command will create four files:
- - `main.py` ← main Python project file
- - `pyproject.toml` ← main configuration file
- - `.python-version` ← which is currently `3.13`
- - `README.md` ← [Markdown] file
 
-Let's look at `pyproject.toml`, 
+- `main.py` ← main Python project file
+- `pyproject.toml` ← main configuration file
+- `.python-version` ← which is currently `3.13`
+- `README.md` ← [Markdown] file
+
+Let's look at `pyproject.toml`,
 which is the main _configuration file_ of a Python project.
-Let's use the `cat` command (short for concatenate) 
-to see the contents of `pyproject.toml`: 
+Let's use the `cat` command (short for concatenate)
+to see the contents of `pyproject.toml`:
+
 ```bash
 cat pyproject.toml
 ```
+
 to show the contents of the file:
+
 ```toml
 [project]
 name = "my-project"
@@ -119,6 +134,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = []
 ```
+
 If we'd like, we could modify `description` to describe the purpose of this project.
 
 ```toml
@@ -126,15 +142,16 @@ description = "A sample project to learn uv"
 ```
 
 > [NOTE]
-> [TOML] is a file format standard intended for use in configuration files.   
+> [TOML] is a file format standard intended for use in configuration files.
 > TOML files include
->  - _Key-value pairs_ (e.g., `name = "my-project"`),
->  - _Tables_, which are a collections of key-value pairs (e.g., `[project]`),
->  - Arrays (e.g., `dependencies = []`), and
->  - Comments (which start with a `#`).
+>
+> - _Key-value pairs_ (e.g., `name = "my-project"`),
+> - _Tables_, which are a collections of key-value pairs (e.g., `[project]`),
+> - Arrays (e.g., `dependencies = []`), and
+> - Comments (which start with a `#`).
 
 > [!TIP]
-> The Python Packaging User Guide describes 
+> The Python Packaging User Guide describes
 > [how to write a `pyproject.toml` file](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/).
 
 Next let's look at the contents of `main.py`:
@@ -152,36 +169,37 @@ When we execute this file as a script, it will print out a line saying hello.
 
 > [!NOTE]
 > The `if __name__ == "__main__"` block contains
-> code that will run when the file is run as a script. 
+> code that will run when the file is run as a script.
 > This block will not run when the file is imported in Python.
 
 > [!TIP]
-> Creating a `main()` function means that we can run it from 
-> _within Python_, not just when the file is executed as a script.  
+> Creating a `main()` function means that we can run it from
+> _within Python_, not just when the file is executed as a script.
 
-If we have already installed Python, we could run it with 
+If we have already installed Python, we could run it with
 
 ```bash
 python main.py
 ```
 
 > [!CAUTION]
-> If our project had depended on Python packages (e.g., `numpy` or `astropy`), 
+> If our project had depended on Python packages (e.g., `numpy` or `astropy`),
 > then we would have had to manually install them prior to running `python`.
 
 > [!TIP]
-> If we use `uv run` instead, then `uv` will take care of 
-> package installation for us!   
+> If we use `uv run` instead, then `uv` will take care of
+> package installation for us!
 
 ```bash
 uv run main.py
 ```
 
 The directory now contains a file and a directory:
- - `uv.lock` ← automatically generated file containing exact Python & package versions
- - `.venv/` ← directory containing the virtual environment for this project
 
-The command `uv run main.py` was run 
+- `uv.lock` ← automatically generated file containing exact Python & package versions
+- `.venv/` ← directory containing the virtual environment for this project
+
+The command `uv run main.py` was run
 within the virtual environment contained in `.venv/`,
 using exact package versions defined in `uv.lock`.
 
@@ -193,17 +211,19 @@ Let's do the following commands:
 ```bash
 uv add astropy
 ```
+
 This command updates `pyproject.toml` to contain the following lines:
+
 ```toml
 dependencies = [
     "astropy>=7.0.1",
 ]
 ```
-Using `uv add` also updated the environments contained in `.venv/` and `uv.lock`.  
 
+Using `uv add` also updated the environments contained in `.venv/` and `uv.lock`.
 
 > [!CAUTION]
-> Sometimes new versions of packages have breaking changes. 
+> Sometimes new versions of packages have breaking changes.
 > A function might have been removed, or moved to another location.
 
 > [!TIP]
@@ -211,21 +231,24 @@ Using `uv add` also updated the environments contained in `.venv/` and `uv.lock`
 > more likely that the script will continue to work in the future.
 
 If we wanted to use an _exact_ version of astropy, we could do:
+
 ```bash
 uv add astropy==7.0.1
 ```
 
 We can also add and remove dependencies:
+
 ```bash
 uv add numpy
 uv remove numpy
 ```
 
-Now let's modify `main()` in `main.py` to print 
+Now let's modify `main()` in `main.py` to print
 the number of teaspoons in 1 barn · megaparsec:
 
 ```python
 import astropy.units as u
+
 
 def main():
     volume = 1 * u.barn * u.Mpc
@@ -243,7 +266,6 @@ uv run main.py
 > that do _one_ thing
 > with _no side effects_.
 
-
-[Markdown]: https://www.markdownguide.org
-[TOML]: https://toml.io/en
+[markdown]: https://www.markdownguide.org
+[toml]: https://toml.io/en
 [`uv`]: https://astral.sh/uv
