@@ -141,7 +141,7 @@ If we'd like, we could modify `description` to describe the purpose of this proj
 description = "A sample project to learn uv"
 ```
 
-> [NOTE]
+> [!NOTE]
 > [TOML] is a file format standard intended for use in configuration files.
 > TOML files include
 >
