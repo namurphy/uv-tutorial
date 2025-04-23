@@ -1,8 +1,8 @@
 # Creating Python scripts and packages with `uv`
 
 In this session, 
-we will learn how to create Python scripts and packages with [`uv`],
-which is an extremely fast Python package and project manager. 
+we will learn how to create Python scripts and packages with [`uv`]:
+an extremely fast Python package and project manager. 
 
 ## Prerequisites
 
@@ -10,30 +10,23 @@ which is an extremely fast Python package and project manager.
 
 ### Installing `uv`
 
-Please follow these [instructions to install `uv`](https://docs.astral.sh/uv/getting-started/installation/)
+Please follow these [instructions to install `uv`](https://docs.astral.sh/uv/getting-started/installation/).
 
 To make sure that `uv` is installed, open a terminal and run
 ```bash
 uv version
 ```
 
-## Outline
-
- - Creating and managing Python environments
- - 
- - Important files 
-   - `pyproject.toml`
-   - 
-
-
 ## Creating and managing Python environments
 
+```bash
+mkdir crane_osrse
+cd crane_osrse
+uv venv -python
+```
 
 ## Why create Python scripts and packages?
 
-
-
-##
 
 ```bash
 uv init my-project
@@ -48,12 +41,13 @@ This command will create four files:
  - `README.md` ← [Markdown] file
 
 Let's look at `pyproject.toml`, 
-which is a [TOML] file that contains the metadata for the project. 
-Let's use the command
+which is the main _configuration file_ of a Python project.
+Let's use the `cat` command (short for concatenate) 
+to see the contents of `pyproject.toml`: 
 ```bash
 cat pyproject.toml
 ```
-which shows the contents of the file (`cat` is short for "concatenate"):
+to show the contents of the file:
 ```toml
 [project]
 name = "my-project"
@@ -63,6 +57,19 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = []
 ```
+
+[TOML] is a file format standard intended for use in configuration files.   
+TOML files include
+ - _Key-value pairs_ (e.g., `name = "my-project"`),
+ - _Tables_, which are a collections of key-value pairs (e.g., `[project]`),
+ - Arrays (e.g., `dependencies = []`), and
+ - Comments (which start with a `#`).
+
+> [!TIP]
+> The Python Packaging User Guide describes 
+> [how to write a `pyproject.toml` file](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/).
+
+
 We can edit `pyproject.toml` to add our own description.
 Because  
 
