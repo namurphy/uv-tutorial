@@ -2,27 +2,89 @@
 
 In this session, 
 we will learn how to create Python scripts and packages with [`uv`]:
-an extremely fast Python package and project manager. 
+an exciting new Python package installer and manager.
 
-## Prerequisites
+Historically, the Python package management landscape has been quite fragmented,
+partially because Python is a 30+ old language.
+The goal of `uv` is to create a unified toolchain 
+for installing and packaging Python packages 
+(including as a stand-in replacement for `pip`).
+Even though `uv` was first released in February 2024,
+it has been rapidly adopted by people and projects across the community.
 
-### Terminal access
+The creators of `uv` have also worked hard to grow psychological safety 
+in the `uv` community.   
 
-### Installing `uv`
+Here we will go through a few of the most useful parts of `uv`.   
 
-Please follow these [instructions to install `uv`](https://docs.astral.sh/uv/getting-started/installation/).
+## Installing `uv`
 
-To make sure that `uv` is installed, open a terminal and run
-```bash
-uv version
-```
+These [instructions](https://docs.astral.sh/uv/getting-started/installation/)
+describe how to install `uv`.
+To test that `uv` is installed correctly, open a terminal and type `uv version`.  
+`uv` can be used in Unix-style terminals as well as Powershell.
 
 ## Creating and managing Python environments
 
+When using Python, we frequently install packages like Astropy
+using a command like `pip install astropy`.
+By default, this command will install Astropy into the default Python installation.
+This typically works well enough most of the time,
+but sometimes we'll run into a _package conflict_.  
+
+Suppose PlasmaPy version `2024.10.0` requires `astropy < 7.0.0`, 
+but  SunPy `6.1.1` requires `astropy >= 7.0.0`.
+These versions of PlasmaPy and SunPy
+cannot be installed simultaneously!
+The way to get around this is to use virtual environments.  
+
+A **virtual environment** is 
+"an isolated space where you can work on your Python projects, 
+separately from your system-installed Python."
+To resolve the above problem, we can create a virtual environment
+to work with SunPy and a separate virtual environment to work with PlasmaPy.
+
+Let's create a temporary workspace.
 ```bash
 mkdir crane_osrse
 cd crane_osrse
-uv venv -python
+```
+
+Let's use the `which` command in Unix to see 
+which installation of Python we are currently using.
+```bash
+which python
+```
+> [!TIP]
+> In Unix terminals, the `which` command tells us 
+> where different executable files are located.
+
+To create a virtual environment, we can use the command
+```bash
+uv venv
+```
+If we use `ls`, we see that a new virtual environment 
+is located in the (possibly hidden) `.venv/` subdirectory.
+If we try
+```bash
+which python
+```
+again, then we see that we're still using the default Python.  
+
+The output of `uv venv` tells us the command to _activate_ a virtual environment.
+For Unix, this is
+```bash
+source .venv/bin/activate
+```
+Now if we do
+```bash
+which python
+```
+we see that we are using the version of Python located in the `.venv` subdirectory.
+
+To install a package into the virtual environment, use
+```bash
+uv pip install plasmapy
 ```
 
 ## Why create Python scripts and packages?
