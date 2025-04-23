@@ -42,41 +42,46 @@ A **virtual environment** is
 "an isolated space where you can work on your Python projects,
 separately from your system-installed Python."
 To resolve the above problem, we can create a virtual environment
-to work with SunPy and a separate virtual environment to work with PlasmaPy.
+to work with SunPy, and a separate virtual environment to work with PlasmaPy.
 
-Let's create a temporary workspace.
+To keep things organized, let's create a temporary directory to work in.
 
 ```bash
 mkdir crane_osrse
 cd crane_osrse
 ```
-
-Let's use the `which` command in Unix to see
-which installation of Python we are currently using.
-
-```bash
-which python
-```
-
 > [!TIP]
 > In Unix terminals, the `which` command tells us
 > where different executable files are located.
 
-To create a virtual environment, we can use the command
-
-```bash
-uv venv
-```
-
-If we use `ls`, we see that a new virtual environment
-is located in the (possibly hidden) `.venv/` subdirectory.
-If we try
+Let's use `which` to see which installation of `python` we are currently using.
 
 ```bash
 which python
 ```
 
-again, then we see that we're still using the default Python.
+Let's [create a virtual environment](https://docs.astral.sh/uv/pip/environments)!
+
+```bash uv venv ```
+
+Let's use `ls` to list the contents of the directory. 
+We need to use the `-A` flag to show everything, 
+since files and directories starting with a dot are hidden by default. 
+
+```bash
+ls -A
+```
+
+There is a new directory called `.venv/` which contains the virtual environment.
+
+Let's check which `python` executable we're using:
+
+```bash
+which python
+```
+This is still the same `python`
+
+
 
 The output of `uv venv` tells us the command to _activate_ a virtual environment.
 For Unix, this is
@@ -145,10 +150,10 @@ description = "A sample project to learn uv"
 > [TOML] is a file format standard intended for use in configuration files.
 > TOML files include
 >
-> - _Key-value pairs_ (e.g., `name = "my-project"`),
-> - _Tables_, which are a collections of key-value pairs (e.g., `[project]`),
-> - Arrays (e.g., `dependencies = []`), and
-> - Comments (which start with a `#`).
+> - _Key-value pairs_, like `name = "my-project"`,
+> - _Tables_, like `[project]`, which can contain multiple key-value pairs,
+> - Arrays, like `dependencies = []`, and
+> - Comments, which start with a `#`.
 
 > [!TIP]
 > The Python Packaging User Guide describes
