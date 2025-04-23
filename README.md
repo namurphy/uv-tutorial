@@ -119,21 +119,23 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = []
 ```
+If we'd like, we could modify `description` to describe the purpose of this project.
 
-[TOML] is a file format standard intended for use in configuration files.   
-TOML files include
- - _Key-value pairs_ (e.g., `name = "my-project"`),
- - _Tables_, which are a collections of key-value pairs (e.g., `[project]`),
- - Arrays (e.g., `dependencies = []`), and
- - Comments (which start with a `#`).
+```toml
+description = "A sample project to learn uv"
+```
+
+> [NOTE]
+> [TOML] is a file format standard intended for use in configuration files.   
+> TOML files include
+>  - _Key-value pairs_ (e.g., `name = "my-project"`),
+>  - _Tables_, which are a collections of key-value pairs (e.g., `[project]`),
+>  - Arrays (e.g., `dependencies = []`), and
+>  - Comments (which start with a `#`).
 
 > [!TIP]
 > The Python Packaging User Guide describes 
 > [how to write a `pyproject.toml` file](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/).
-
-
-We can edit `pyproject.toml` to add our own description.
-Because  
 
 Next let's look at the contents of `main.py`:
 
@@ -163,7 +165,7 @@ If we have already installed Python, we could run it with
 python main.py
 ```
 
-> [!IMPORTANT]
+> [!CAUTION]
 > If our project had depended on Python packages (e.g., `numpy` or `astropy`), 
 > then we would have had to manually install them prior to running `python`.
 
@@ -204,7 +206,7 @@ Using `uv add` also updated the environments contained in `.venv/` and `uv.lock`
 > Sometimes new versions of packages have breaking changes. 
 > A function might have been removed, or moved to another location.
 
-> [!HINT]
+> [!TIP]
 > Specifying the exact versions of dependencies makes it significantly
 > more likely that the script will continue to work in the future.
 
@@ -219,14 +221,11 @@ uv add numpy
 uv remove numpy
 ```
 
-Now let's modify `main.py` to print out 
+Now let's modify `main()` in `main.py` to print 
 the number of teaspoons in 1 barn · megaparsec:
 
 ```python
-# In main.py
-
 import astropy.units as u
-
 
 def main():
     volume = 1 * u.barn * u.Mpc
@@ -239,9 +238,12 @@ and then run it with
 uv run main.py
 ```
 
-
-
+> [!TIP]
+> For cleaner code, write _short functions_
+> that do _one_ thing
+> with _no side effects_.
 
 
 [Markdown]: https://www.markdownguide.org
 [TOML]: https://toml.io/en
+[`uv`]: https://astral.sh/uv
