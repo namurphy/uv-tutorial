@@ -62,7 +62,9 @@ which python
 
 Let's [create a virtual environment](https://docs.astral.sh/uv/pip/environments)!
 
-```bash uv venv ```
+```bash 
+uv venv 
+```
 
 Let's use `ls` to list the contents of the directory. 
 We need to use the `-A` flag to show everything, 
