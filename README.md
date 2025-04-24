@@ -77,6 +77,9 @@ since files and directories starting with a dot are hidden by default.
 ls -A
 ```
 
+> [!TIP]
+> In PowerShell, use `dir` instead of `ls`.
+
 There is a new directory called `.venv/` which contains the virtual environment.
 Let's check which `python` executable we're using:
 
@@ -87,11 +90,14 @@ This is still the same `python` as before because
 we still need to _activate_ the virtual environment.
 Fortunately, the output of `uv venv` provides the command 
 to activate the virtual environment. 
-For bash, the command is:
+For the [`bash`] shell in Unix, the command is:
 
 ```bash
 source .venv/bin/activate
 ```
+
+> [!NOTE]
+> In PowerShell, it may be necessary to run the script as an administrator.
 
 Now let's see which `python` we are using:
 
@@ -263,8 +269,10 @@ Using `uv add` also updated the environments contained in `.venv/` and `uv.lock`
 > A function might have been removed, or moved to another location.
 
 > [!TIP]
-> Specifying the exact versions of dependencies makes it significantly
-> more likely that the script will continue to work in the future.
+> Specifying the exact versions of dependencies makes it 
+> more likely that a script we create now 
+> will continue to work in the future,
+> or if we share it with someone else.
 
 To use an _exact_ version of astropy, run:
 
@@ -345,7 +353,8 @@ needs to be present for Python to treat a directory like a Python package.
 cat src/cranepy/__init__.py
 ```
 
-We can now install `cranepy`!
+If we were able to successfully activate a virtual environment earlier,
+we can now install `cranepy`!
 
 ```bash
 uv pip install cranepy
@@ -360,3 +369,4 @@ If we run `python`, we can now import it!
 [markdown]: https://www.markdownguide.org
 [**toml**]: https://toml.io/en
 [`uv`]: https://astral.sh/uv
+[`bash`]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
