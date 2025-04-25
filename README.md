@@ -50,6 +50,7 @@ To keep things organized, let's create a temporary directory to work in.
 mkdir crane_osrse
 cd crane_osrse
 ```
+
 > [!TIP]
 > In Unix terminals, the `which` command tells us
 > where different executable files are located.
@@ -62,16 +63,17 @@ which python
 
 Let's [create a virtual environment](https://docs.astral.sh/uv/pip/environments)!
 
-```bash 
+```bash
 uv venv --python 3.13
 ```
+
 Specifying the version of Python with `--python 3.13` isn't necessary,
 but ensures that we're using the most recent version of Python
 until the next one is released in October 2025.
 
-Let's use `ls` to list the contents of the directory. 
-We need to use the `-A` flag to show everything, 
-since files and directories starting with a dot are hidden by default. 
+Let's use `ls` to list the contents of the directory.
+We need to use the `-A` flag to show everything,
+since files and directories starting with a dot are hidden by default.
 
 ```bash
 ls -A
@@ -86,10 +88,11 @@ Let's check which `python` executable we're using:
 ```bash
 which python
 ```
-This is still the same `python` as before because 
+
+This is still the same `python` as before because
 we still need to _activate_ the virtual environment.
-Fortunately, the output of `uv venv` provides the command 
-to activate the virtual environment. 
+Fortunately, the output of `uv venv` provides the command
+to activate the virtual environment.
 For the [`bash`] shell in Unix, the command is:
 
 ```bash
@@ -104,21 +107,22 @@ Now let's see which `python` we are using:
 ```bash
 which python
 ```
+
 Because we activated the environment, the `python` we are using is
-located at `.venv/bin/python` relative to the current directory. 
+located at `.venv/bin/python` relative to the current directory.
 
 > [!IMPORTANT]
-> The command to activate a virtual environment must be run 
+> The command to activate a virtual environment must be run
 > every time we open a terminal.
 
 > [!TIP]
 > To avoid having to manually activate our default environment,
-> we can include the command in the configuration file 
-> for the shell we are using (i.e., `.bashrc` for `bash` and   
+> we can include the command in the configuration file
+> for the shell we are using (i.e., `.bashrc` for `bash` and
 > `.zshrc` for `zsh` in the home directory).
 > I'm happy to help with this after!
 
-To install a package into the current virtual environment, 
+To install a package into the current virtual environment,
 use `uv pip`:
 
 ```bash
@@ -140,7 +144,7 @@ Let's initialize a project with `uv`:
 uv init crane
 ```
 
-Let's enter the `crane/` directory with: 
+Let's enter the `crane/` directory with:
 
 ```bash
 cd crane
@@ -154,7 +158,7 @@ This command creates four files:
 - `README.md` ← a [Markdown] file that we can use for documentation
 
 Let's look at `pyproject.toml`,
-the main _configuration file_ of a Python project, 
+the main _configuration file_ of a Python project,
 by using `cat` (which is short for "concatenate"). 🐈
 
 ```bash
@@ -203,7 +207,7 @@ if __name__ == "__main__":
     main()
 ```
 
-Executing `main.py` as a script prints out a line saying hello. 
+Executing `main.py` as a script prints out a line saying hello.
 
 ```bash
 python main.py
@@ -269,8 +273,8 @@ Using `uv add` also updated the environments contained in `.venv/` and `uv.lock`
 > A function might have been removed, or moved to another location.
 
 > [!TIP]
-> Specifying the exact versions of dependencies makes it 
-> more likely that a script we create now 
+> Specifying the exact versions of dependencies makes it
+> more likely that a script we create now
 > will continue to work in the future,
 > or if we share it with someone else.
 
@@ -296,9 +300,7 @@ from astropy import units
 
 def main():
     volume = 1 * units.barn * units.Mpc
-    print(
-        volume.to(units.imperial.tsp)
-    )
+    print(volume.to(units.imperial.tsp))
 ```
 
 and then run it with
@@ -307,8 +309,8 @@ and then run it with
 uv run main.py
 ```
 
-We can expand `main.py` for a research project, 
-such as doing data analysis for an experiment. 
+We can expand `main.py` for a research project,
+such as doing data analysis for an experiment.
 
 > [!TIP]
 > For cleaner code, write _short functions_
@@ -318,7 +320,7 @@ such as doing data analysis for an experiment.
 ## Creating a Python package with `uv` (if time)
 
 Next let's create a Python **package**, analogous to NumPy.
-Let's navigate up a directory 
+Let's navigate up a directory
 so that we're not in a pre-existing project directory.
 
 ```bash
@@ -365,8 +367,8 @@ cd src/cranepy
 ls -A
 ```
 
-This directory contains a `__init__.py` file, which is the file that 
-needs to be present for Python to treat a directory like a Python package. 
+This directory contains a `__init__.py` file, which is the file that
+needs to be present for Python to treat a directory like a Python package.
 `__init__.py` files typically contain initialization code.
 An `__init__.py` file is necessary in order for a directory to be imported by Python.
 
@@ -374,7 +376,7 @@ An `__init__.py` file is necessary in order for a directory to be imported by Py
 cat __init__.py
 ```
 
-[markdown]: https://www.markdownguide.org
 [**toml**]: https://toml.io/en
-[`uv`]: https://astral.sh/uv
+[markdown]: https://www.markdownguide.org
 [`bash`]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
+[`uv`]: https://astral.sh/uv
