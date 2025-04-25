@@ -347,11 +347,11 @@ If we successfully activated the environment, then
 we can install our new `cranepy` package with the command:
 
 ```bash
-uv pip install .
+uv pip install -e .
 ```
 
-> [!NOTE]
-> In a Unix shell, `.` refers to the current directory.
+The `-e` makes the installation "editable".
+In Unix, `.` refers to the current directory.
 
 If we run `python`, we can now import it!
 
