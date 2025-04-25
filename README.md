@@ -150,16 +150,18 @@ Let's enter the `crane/` directory with:
 cd crane
 ```
 
-This command creates four files:
+This command creates several files:
 
 - `main.py` ← main Python project file
 - `pyproject.toml` ← main configuration file
 - `.python-version` ← which is currently `3.13`
 - `README.md` ← a [Markdown] file that we can use for documentation
+- `.gitignore` ← tells `git` to ignore certain files (might not be created)
+- `.git/` ← directory managed by `git` (might not be created) 
 
 Let's look at `pyproject.toml`,
-the main _configuration file_ of a Python project,
-by using `cat` (which is short for "concatenate"). 🐈
+the main _configuration file_ of a Python project.
+The `cat` command (short for "concatenate") prints out the contents of files. 🐈
 
 ```bash
 cat pyproject.toml
@@ -343,7 +345,27 @@ ls
 There are still `README.md`, `.python-version`, and `pyproject.toml` files.
 Instead of `main.py`, there is now an `src/` directory.
 
-If we successfully activated the environment, then
+Instead of `main.py`, the code is now in `src/cranepy`.
+
+```bash
+ls -A src/cranepy
+```
+
+This directory contains a `__init__.py` file, which is the file that
+needs to be present for Python to treat a directory like a Python package.
+
+```bash
+cat src/cranepy/__init__.py
+```
+
+> [!IMPORTANT]
+> An `__init__.py` file is necessary for a directory to be imported by Python.
+> `__init__.py` files often import `.py` files from the directory and 
+
+`__init__.py` files typically contain initialization code.
+An `__init__.py` file is necessary in order for a directory to be imported by Python.
+
+If we previously activated the virtual environment, then
 we can install our new `cranepy` package with the command:
 
 ```bash
@@ -358,22 +380,6 @@ If we run `python`, we can now import it!
 ```pycon
 >>> import cranepy
 >>> cranepy.hello()
-```
-
-Instead of `main.py`, the code is now in `src/cranepy`.
-
-```bash
-cd src/cranepy
-ls -A
-```
-
-This directory contains a `__init__.py` file, which is the file that
-needs to be present for Python to treat a directory like a Python package.
-`__init__.py` files typically contain initialization code.
-An `__init__.py` file is necessary in order for a directory to be imported by Python.
-
-```bash
-cat __init__.py
 ```
 
 [**toml**]: https://toml.io/en
