@@ -342,28 +342,17 @@ There are still `README.md`, `.python-version`, and `pyproject.toml` files.
 Instead of `main.py`, the code is now in `src/cranepy`.
 
 ```bash
-ls src/cranepy
+cd src/cranepy
+ls -A
 ```
 
 This directory contains a `__init__.py` file, which is the file that 
 needs to be present for Python to treat a directory like a Python package. 
 `__init__.py` files typically contain initialization code.
+An `__init__.py` file is necessary in order for a directory to be imported by Python.
 
 ```bash
-cat src/cranepy/__init__.py
-```
-
-If we were able to successfully activate a virtual environment earlier,
-we can now install `cranepy`!
-
-```bash
-uv pip install cranepy
-```
-If we run `python`, we can now import it!
-
-```pycon
->>> import cranepy
->>> cranepy.hello()
+cat __init__.py
 ```
 
 [markdown]: https://www.markdownguide.org
