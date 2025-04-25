@@ -120,7 +120,7 @@ located at `.venv/bin/python` relative to the current directory.
 
 To install a package into the current virtual environment, 
 use `uv pip`:
-   
+
 ```bash
 uv pip install plasmapy
 ```
@@ -339,6 +339,25 @@ ls
 ```
 
 There are still `README.md`, `.python-version`, and `pyproject.toml` files.
+Instead of `main.py`, there is now an `src/` directory.
+
+If we successfully activated the environment, then
+we can install our new `cranepy` package with the command:
+
+```bash
+uv pip install .
+```
+
+> [!NOTE]
+> In a Unix shell, `.` refers to the current directory.
+
+If we run `python`, we can now import it!
+
+```pycon
+>>> import cranepy
+>>> cranepy.hello()
+```
+
 Instead of `main.py`, the code is now in `src/cranepy`.
 
 ```bash
