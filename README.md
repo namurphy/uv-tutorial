@@ -121,13 +121,12 @@ Because we activated the virtual environment, the `python` we are using is
 located at `.venv/bin/python` relative to the current directory.
 
 > [!IMPORTANT]
-> The command to activate a virtual environment must be run
-> every time we open a terminal.
+> The virtual environment will need to be re-activated if we open a new terminal.
 
 > [!TIP]
 > To avoid having to manually activate our default environment,
-> we can include the command in the configuration file
-> for the shell we are using (i.e., `.bashrc` for `bash`).
+> we can include the command in our shell configuration file
+> (i.e., `.bashrc` for `bash`).
 
 To install a package into the current virtual environment, use `uv pip`
 as a drop-in replacement for `pip`:
@@ -144,13 +143,13 @@ uv pip install numpy
 Let's initialize a project with `uv`.
 
 ```bash
-uv init project
+uv init myproject
 ```
 
-Let's enter the `project/` directory and see what is in it.
+Let's enter the `myproject/` directory and see what is in it.
 
 ```bash
-cd project
+cd myproject
 ls -A
 ```
 
@@ -174,7 +173,7 @@ The file contains:
 
 ```toml
 [project]
-name = "project"
+name = "myproject"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -183,10 +182,10 @@ dependencies = []
 ```
 
 > [!NOTE]
-> [**TOML**] is a file format standard intended for use in configuration files.
+> [**TOML**] is a file format used in configuration files.
 > TOML files include
 >
-> - **Key-value pairs**, like `name = "crane"`,
+> - **Key-value pairs**, like `name = "myproject"`,
 > - **Tables**, like `[project]`, which are collections of key-value pairs,
 > - **Arrays**, like `dependencies = []`, and
 > - **Comments**, which start with a `#`.
@@ -327,13 +326,13 @@ cd ..
 Let's use `uv init` with the `--library` option to create `package`:
 
 ```bash
-uv init package --library
+uv init mypackage --library
 ```
 
 And then see what's in the new `package/` directory:
 
 ```bash
-cd package
+cd mypackage
 ls
 ```
 
@@ -343,7 +342,7 @@ Instead of `main.py`, there is now an `src/` directory.
 Instead of `main.py`, the code is now in `src/cranepy`.
 
 ```bash
-ls -A src/package
+ls -A src/mypackage
 ```
 
 This directory contains a `__init__.py` file, which is the file that
@@ -356,15 +355,20 @@ cat src/package/__init__.py
 > [!IMPORTANT]
 > An `__init__.py` file is necessary for a directory to be imported by Python.
 
-<!--
-> `__init__.py` files often import `.py` files from the directory and 
 
-`__init__.py` files typically contain initialization code.
-An `__init__.py` file is necessary in order for a directory to be imported by Python.
--->
+Let's create a virtual environment for the project.
 
-If we previously activated the virtual environment, then
-we can install our new `package` with the command:
+```bash
+uv venv --python=3.13
+```
+
+Let's activate the environment.
+
+```bash
+source .venv/bin/activate
+```
+
+Now let's install our `mypackage` with the command:
 
 ```bash
 uv pip install -e .
@@ -376,8 +380,8 @@ uv pip install -e .
 If we run `python`, we can now import it!
 
 ```pycon
->>> import package
->>> package.hello()
+>>> import mypackage
+>>> mypackage.hello()
 ```
 
 [**toml**]: https://toml.io/en
