@@ -1,31 +1,49 @@
 # Creating Python scripts and packages with `uv`
 
-In this session,
+In this tutorial,
 we will learn how to create Python scripts and packages with [`uv`]:
-an exciting new Python package installer and manager.
-
-Historically, the Python package management landscape has been quite fragmented,
-partially because Python is a 30+ old language.
-The goal of `uv` is to create a unified toolchain
-for installing and packaging Python packages
-(including as a stand-in replacement for `pip`).
+a new Python package installer and manager written in Rust.
 Even though `uv` was first released in February 2024,
-it has been rapidly adopted by people and projects across the community.
-
-The creators of `uv` have also worked hard to grow psychological safety
-in the `uv` community.
-
-Here we will go through a few of the most useful parts of `uv`.
+it has seen rapid adoption because of the focus on performance, usability, and community.
 
 ## Installing `uv`
 
-These [instructions](https://docs.astral.sh/uv/getting-started/installation/)
-describe how to install `uv`.
-To test that `uv` is installed correctly, open a terminal and type `uv version`.
-`uv` can be used in Unix-style terminals as well as Powershell.
+To follow along with this interactive live-coding tutorial,
+please follow the [**installation instructions**] for `uv`.
+
+> [!TIP]
+> To test that `uv` is installed correctly, open a terminal or Powershell and type
+>
+> ```bash
+> uv version
+> ```
+
+## Why `uv`?
+
+The Python packaging landscape is notoriously fragmented, 
+especially in contrast to newer languages like Rust.
+[Astral] is working toward creating a unified toolchain for Python, 
+including `uv`, 
+`ruff` (for linting, autoformatting, and automated code quality improvements),
+and `ty` (a static type checker).
+
+### Caching
+
+`uv` uses an excellent [caching strategy] 
+to avoid re-downloading dependencies and registry information.
+
+### Dependency resolution
+
+[Dependency resolution] by `uv` is significantly faster than similar tools,
+especially with a warm cache.
+
+`uv` has capabilities that other tools lack, such as resolving environments for:
+ - The lowest allowed versions of all or direct dependencies, and 
+ - Releases made before a certain date.
 
 ## Creating and managing Python environments
 
+<!--
 When using Python, we frequently install packages like Astropy
 using a command like `pip install astropy`.
 By default, this command will install Astropy into the default Python installation.
@@ -37,25 +55,20 @@ but SunPy `6.1.1` requires `astropy >= 7.0.0`.
 These versions of PlasmaPy and SunPy
 cannot be installed simultaneously!
 The way to get around this is to use virtual environments.
+-->
 
-A **virtual environment** is
-"an isolated space where you can work on your Python projects,
-separately from your system-installed Python."
-To resolve the above problem, we can create a virtual environment
-to work with SunPy, and a separate virtual environment to work with PlasmaPy.
+A **virtual environment** is "an isolated space where you can work on 
+your Python projects, separately from your system-installed Python."
+Let's create virtual environment using `uv`. 
 
 To keep things organized, let's create a temporary directory to work in.
 
 ```bash
-mkdir crane_osrse
-cd crane_osrse
+mkdir uv_tutorial
+cd uv_tutorial
 ```
 
-> [!TIP]
-> In Unix terminals, the `which` command tells us
-> where different executable files are located.
-
-Let's use `which` to see which installation of `python` we are currently using.
+Let's use `which` to see which `python` executable we are currently using.
 
 ```bash
 which python
@@ -68,12 +81,9 @@ uv venv --python 3.13
 ```
 
 Specifying the version of Python with `--python 3.13` isn't necessary,
-but ensures that we're using the most recent version of Python
-until the next one is released in October 2025.
+but ensures that we're using the most recent version of Python.
 
-Let's use `ls` to list the contents of the directory.
-We need to use the `-A` flag to show everything,
-since files and directories starting with a dot are hidden by default.
+Let's look at the full contents of the directory.
 
 ```bash
 ls -A
@@ -82,7 +92,7 @@ ls -A
 > [!TIP]
 > In PowerShell, use `dir` instead of `ls`.
 
-There is a new directory called `.venv/` which contains the virtual environment.
+The new directory called `.venv/` contains the virtual environment.
 Let's check which `python` executable we're using:
 
 ```bash
@@ -91,9 +101,8 @@ which python
 
 This is still the same `python` as before because
 we still need to _activate_ the virtual environment.
-Fortunately, the output of `uv venv` provides the command
-to activate the virtual environment.
-For the [`bash`] shell in Unix, the command is:
+The output of `uv venv` provides the command to activate the virtual environment.
+For [`bash`], the command is:
 
 ```bash
 source .venv/bin/activate
@@ -108,7 +117,7 @@ Now let's see which `python` we are using:
 which python
 ```
 
-Because we activated the environment, the `python` we are using is
+Because we activated the virtual environment, the `python` we are using is
 located at `.venv/bin/python` relative to the current directory.
 
 > [!IMPORTANT]
@@ -118,50 +127,44 @@ located at `.venv/bin/python` relative to the current directory.
 > [!TIP]
 > To avoid having to manually activate our default environment,
 > we can include the command in the configuration file
-> for the shell we are using (i.e., `.bashrc` for `bash` and
-> `.zshrc` for `zsh` in the home directory).
-> I'm happy to help with this after!
+> for the shell we are using (i.e., `.bashrc` for `bash`).
 
-To install a package into the current virtual environment,
-use `uv pip`:
+To install a package into the current virtual environment, use `uv pip`
+as a drop-in replacement for `pip`:
 
 ```bash
-uv pip install plasmapy
+uv pip install numpy
 ```
 
-> [!NOTE]
-> Most `pip` commands will still work if we change `pip` → `uv pip`.
+> [!TIP]
+> Most `pip` commands will work if we change `pip` → `uv pip`.
 
-## Why create Python scripts and packages?
+## Creating projects
 
-Creating scripts and projects helps us keep our work organized
-while making it significantly easier to reproduce our work
-and to fix mistakes.
-
-Let's initialize a project with `uv`:
+Let's initialize a project with `uv`.
 
 ```bash
-uv init crane
+uv init project
 ```
 
-Let's enter the `crane/` directory with:
+Let's enter the `project/` directory and see what is in it.
 
 ```bash
-cd crane
+cd project
+ls -A
 ```
 
 This command creates several files:
 
-- `main.py` ← main Python project file
-- `pyproject.toml` ← main configuration file
-- `.python-version` ← which is currently `3.13`
+- `main.py` ← main project file
+- `pyproject.toml` ← configuration file
+- `.python-version` ← currently `3.13`
 - `README.md` ← a [Markdown] file that we can use for documentation
-- `.gitignore` ← tells `git` to ignore certain files (might not be created)
-- `.git/` ← directory managed by `git` (might not be created) 
+- `.gitignore` ← tells `git` to ignore certain files
+- `.git/` ← directory managed by `git`
 
 Let's look at `pyproject.toml`,
 the main _configuration file_ of a Python project.
-The `cat` command (short for "concatenate") prints out the contents of files. 🐈
 
 ```bash
 cat pyproject.toml
@@ -171,18 +174,12 @@ The file contains:
 
 ```toml
 [project]
-name = "crane"
+name = "project"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = []
-```
-
-If we'd like, we could modify `description` to describe the purpose of this project.
-
-```toml
-description = "A sample project to learn uv"
 ```
 
 > [!NOTE]
@@ -202,7 +199,7 @@ Let's look at the contents of `main.py`:
 
 ```python
 def main():
-    print("Hello from crane!")
+    print("Hello from project!")
 
 
 if __name__ == "__main__":
@@ -260,25 +257,21 @@ Let's do the following commands:
 uv add astropy
 ```
 
-This command updates `pyproject.toml` to contain the following lines:
+Let's see what's in `pyproject.toml` now.
+
+```bash
+cat pyproject.toml
+```
+
+The `uv add` command updated `pyproject.toml` to contain the following lines:
 
 ```toml
 dependencies = [
-    "astropy>=7.0.1",
+    "astropy>=7.1.0",
 ]
 ```
 
-Using `uv add` also updated the environments contained in `.venv/` and `uv.lock`.
-
-> [!CAUTION]
-> Sometimes new versions of packages have breaking changes.
-> A function might have been removed, or moved to another location.
-
-> [!TIP]
-> Specifying the exact versions of dependencies makes it
-> more likely that a script we create now
-> will continue to work in the future,
-> or if we share it with someone else.
+Using `uv add` updated the environments contained in `.venv/` and `uv.lock`.
 
 To use an _exact_ version of astropy, run:
 
@@ -293,6 +286,7 @@ uv add numpy
 uv remove numpy
 ```
 
+<!--
 Now let's modify `main()` in `main.py` to print
 the number of teaspoons in 1 barn · megaparsec:
 
@@ -318,10 +312,11 @@ such as doing data analysis for an experiment.
 > For cleaner code, write _short functions_
 > that _do one thing_
 > with _no side effects_! ✅️
+-->
 
 ## Creating a Python package with `uv` (if time)
 
-Next let's create a Python **package**, analogous to NumPy.
+Next let's create a Python **package**.
 Let's navigate up a directory
 so that we're not in a pre-existing project directory.
 
@@ -329,16 +324,16 @@ so that we're not in a pre-existing project directory.
 cd ..
 ```
 
-Let's use `uv init` with the `--library` option to create `cranepy`:
+Let's use `uv init` with the `--library` option to create `package`:
 
 ```bash
-uv init cranepy --library
+uv init package --library
 ```
 
-And then see what's in the new `cranepy/` directory:
+And then see what's in the new `package/` directory:
 
 ```bash
-cd cranepy
+cd package
 ls
 ```
 
@@ -348,41 +343,47 @@ Instead of `main.py`, there is now an `src/` directory.
 Instead of `main.py`, the code is now in `src/cranepy`.
 
 ```bash
-ls -A src/cranepy
+ls -A src/package
 ```
 
 This directory contains a `__init__.py` file, which is the file that
 needs to be present for Python to treat a directory like a Python package.
 
 ```bash
-cat src/cranepy/__init__.py
+cat src/package/__init__.py
 ```
 
 > [!IMPORTANT]
 > An `__init__.py` file is necessary for a directory to be imported by Python.
+
+<!--
 > `__init__.py` files often import `.py` files from the directory and 
 
 `__init__.py` files typically contain initialization code.
 An `__init__.py` file is necessary in order for a directory to be imported by Python.
+-->
 
 If we previously activated the virtual environment, then
-we can install our new `cranepy` package with the command:
+we can install our new `package` with the command:
 
 ```bash
 uv pip install -e .
 ```
 
-The `-e` makes the installation "editable".
-In Unix, `.` refers to the current directory.
+> [!NOTE]
+> The `-e` makes the installation "editable".
 
 If we run `python`, we can now import it!
 
 ```pycon
->>> import cranepy
->>> cranepy.hello()
+>>> import package
+>>> package.hello()
 ```
 
 [**toml**]: https://toml.io/en
 [markdown]: https://www.markdownguide.org
 [`bash`]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
 [`uv`]: https://astral.sh/uv
+[**installation instructions**]: https://docs.astral.sh/uv/getting-started/installation
+[caching strategy]: (https://docs.astral.sh/uv/concepts/cache)
+[dependency resolution]: https://docs.astral.sh/uv/concepts/resolution/
