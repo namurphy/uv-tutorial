@@ -37,7 +37,25 @@ especially with a warm cache.
 
 `uv` has capabilities that other tools lack, such as resolving environments for:
  - The lowest allowed versions of all or direct dependencies, and
- - Releases made before a certain date.
+ - Releases made up until a certain date.
+
+### Universal lock files
+
+`requirements.txt`-style files do not always work across different
+versions of Python or different operating systems. 
+
+`uv` can create a _single_ lock file that fully defines an environment
+for multiple versions of Python, multiple operating systems, and all
+dependency groups.
+
+> [!NOTE]
+> [PEP 751](https://peps.python.org/pep-0751/) recently defined the
+> `pylock.toml` standard as a replacement for `requirements.txt` files.
+> However, `pylock.toml` has limited capabilities compared to `uv.lock`.
+
+> [!IMPORTANT]
+> > [!IMPORTANT]
+> > `pylock` would be a great name for a supervillain from a 1980s children's cartoon.
 
 ## Creating and managing Python environments
 
