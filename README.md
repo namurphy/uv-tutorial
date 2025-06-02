@@ -209,7 +209,13 @@ dependencies = []
 > The Python Packaging User Guide describes
 > [how to write a `pyproject.toml` file](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/).
 
-Let's look at the contents of `main.py`:
+Let's see what's in `main.py`.
+
+```bash
+cat main.py
+```
+
+The contents of `main.py` are:
 
 ```python
 def main():
