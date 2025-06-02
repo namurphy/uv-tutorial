@@ -391,3 +391,4 @@ If we run `python`, we can now import it!
 [**installation instructions**]: https://docs.astral.sh/uv/getting-started/installation
 [caching strategy]: (https://docs.astral.sh/uv/concepts/cache)
 [dependency resolution]: https://docs.astral.sh/uv/concepts/resolution/
+[Astral]: https://astral.sh
