@@ -202,6 +202,7 @@ requires-python = ">=3.13"
 dependencies = []
 ```
 
+<!--
 > [!NOTE]
 > [**TOML**] is a file format used in configuration files.
 > TOML files include
@@ -214,6 +215,7 @@ dependencies = []
 > [!TIP]
 > The Python Packaging User Guide describes
 > [how to write a `pyproject.toml` file](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/).
+-->
 
 Let's see what's in `main.py`.
 
@@ -259,6 +261,12 @@ python main.py
 uv run main.py
 ```
 
+Then let's see what has changed.
+
+```bash
+ls -A
+```
+
 The directory now contains a file and a directory:
 
 - `uv.lock` ← automatically generated file containing exact Python & package versions
@@ -270,16 +278,10 @@ using exact package versions defined in `uv.lock`.
 
 ### Adding and removing dependencies
 
-Now suppose that we want to use Astropy to do some unit conversions.
-Let's do the following commands:
+Now suppose that we want to use Astropy in the project.
 
 ```bash
 uv add astropy
-```
-
-Let's see what's in `pyproject.toml` now.
-
-```bash
 cat pyproject.toml
 ```
 
@@ -293,7 +295,7 @@ dependencies = [
 
 Using `uv add` updated the environments contained in `.venv/` and `uv.lock`.
 
-To use an _exact_ version of astropy, run:
+To use an exact version of astropy, run:
 
 ```bash
 uv add astropy==7.0.1
@@ -302,8 +304,8 @@ uv add astropy==7.0.1
 We can also add and remove dependencies:
 
 ```bash
-uv add numpy
-uv remove numpy
+uv add sunpy
+uv remove sunpy
 ```
 
 <!--
