@@ -15,21 +15,21 @@ please follow the [**installation instructions**] for `uv`.
 > To test that `uv` is installed correctly, open a terminal or Powershell and type
 >
 > ```bash
-> uv version
+> uv self version
 > ```
 
 ## Why `uv`?
 
-The Python packaging landscape is notoriously fragmented, 
+The Python packaging landscape is notoriously fragmented,
 especially in contrast to newer languages like Rust.
-[Astral] is working toward creating a unified toolchain for Python, 
-including `uv`, 
+[Astral] is working toward creating a unified toolchain for Python,
+including `uv`,
 `ruff` (for linting, autoformatting, and automated code quality improvements),
 and `ty` (a static type checker).
 
 ### Caching
 
-`uv` uses an excellent [caching strategy] 
+`uv` uses an excellent [caching strategy]
 to avoid re-downloading dependencies and registry information.
 
 ### Dependency resolution
@@ -38,7 +38,7 @@ to avoid re-downloading dependencies and registry information.
 especially with a warm cache.
 
 `uv` has capabilities that other tools lack, such as resolving environments for:
- - The lowest allowed versions of all or direct dependencies, and 
+ - The lowest allowed versions of all or direct dependencies, and
  - Releases made before a certain date.
 
 ## Creating and managing Python environments
@@ -57,9 +57,9 @@ cannot be installed simultaneously!
 The way to get around this is to use virtual environments.
 -->
 
-A **virtual environment** is "an isolated space where you can work on 
+A **virtual environment** is "an isolated space where you can work on
 your Python projects, separately from your system-installed Python."
-Let's create virtual environment using `uv`. 
+Let's create virtual environment using `uv`.
 
 To keep things organized, let's create a temporary directory to work in.
 
