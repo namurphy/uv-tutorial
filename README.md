@@ -116,11 +116,14 @@ which python
 
 This is still the same `python` as before because
 we still need to _activate_ the virtual environment.
-The output of `uv venv` provides the command to activate the virtual environment.
-For [`bash`], the command is:
+The output of `uv venv` provides the command to activate the virtual environment,
+which differs depending on which shell you're using
 
 ```bash
-source .venv/bin/activate
+source .venv/bin/activate  # bash, sh, zsh
+.venv/Scripts/activate  # PowerShell
+source .venv/bin/activate.fish  # fish
+source .venv/bin/activate.csh  # csh, tcsh
 ```
 
 > [!NOTE]
@@ -356,28 +359,26 @@ And then see what's in the new `package/` directory:
 
 ```bash
 cd mypackage
-ls
+ls -A
 ```
 
-There are still `README.md`, `.python-version`, and `pyproject.toml` files.
 Instead of `main.py`, there is now an `src/` directory.
-
-Instead of `main.py`, the code is now in `src/cranepy`.
 
 ```bash
 ls -A src/mypackage
 ```
 
-This directory contains a `__init__.py` file, which is the file that
-needs to be present for Python to treat a directory like a Python package.
+This directory contains `__init__.py` and `py.typed`.
 
 ```bash
 cat src/package/__init__.py
 ```
 
-> [!IMPORTANT]
+> [!NOTE]
 > An `__init__.py` file is necessary for a directory to be imported by Python.
 
+> [!NOTE]
+> `py.typed` indicates that a package uses type hint annotations.
 
 Let's create a virtual environment for the project.
 
@@ -406,6 +407,9 @@ If we run `python`, we can now import it!
 >>> import mypackage
 >>> mypackage.hello()
 ```
+
+> [!TIP]
+> To learn more, check out the [`uv`] documentation.
 
 [**toml**]: https://toml.io/en
 [markdown]: https://www.markdownguide.org
