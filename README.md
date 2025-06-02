@@ -138,7 +138,7 @@ which python
 Because we activated the virtual environment, the `python` we are using is
 located at `.venv/bin/python` relative to the current directory.
 
-> [!IMPORTANT]
+> [!NOTE]
 > The virtual environment will need to be re-activated if we open a new terminal.
 
 > [!TIP]
@@ -410,6 +410,9 @@ If we run `python`, we can now import it!
 
 > [!TIP]
 > To learn more, check out the [`uv`] documentation.
+
+> [!IMPORTANT]
+> Thank you all for being wonderful people!
 
 [**toml**]: https://toml.io/en
 [markdown]: https://www.markdownguide.org
