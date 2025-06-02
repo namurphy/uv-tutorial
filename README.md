@@ -54,8 +54,7 @@ dependency groups.
 > However, `pylock.toml` has limited capabilities compared to `uv.lock`.
 
 > [!IMPORTANT]
-> > [!IMPORTANT]
-> > `pylock` would be a great name for a supervillain from a 1980s children's cartoon.
+> `pylock` would be a great name for a supervillain from a 1980s children's cartoon.
 
 ## Creating and managing Python environments
 
