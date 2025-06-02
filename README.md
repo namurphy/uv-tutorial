@@ -153,6 +153,12 @@ uv pip install numpy
 > [!TIP]
 > Most `pip` commands will work if we change `pip` → `uv pip`.
 
+We can deactivate a virtual environment with:
+
+```bash
+deactivate
+```
+
 ## Creating projects
 
 Let's initialize a project with `uv`.
@@ -224,12 +230,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
-
-Executing `main.py` as a script prints out a line saying hello.
-
-```bash
-python main.py
 ```
 
 > [!NOTE]
