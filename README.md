@@ -23,9 +23,7 @@ please follow the [**installation instructions**] for `uv`.
 The Python packaging landscape is notoriously fragmented,
 especially in contrast to newer languages like Rust.
 [Astral] is working toward creating a unified toolchain for Python,
-including `uv`,
-`ruff` (for linting, autoformatting, and automated code quality improvements),
-and `ty` (a static type checker).
+including `uv`, `ruff`, and most recently `ty`.
 
 ### Caching
 
