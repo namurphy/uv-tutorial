@@ -22,8 +22,8 @@ please follow the [**installation instructions**] for `uv`.
 
 The Python packaging landscape is notoriously fragmented,
 especially in contrast to newer languages like Rust.
-[Astral] is working toward creating a unified toolchain for Python,
-including `uv`, `ruff`, and most recently `ty`.
+[Astral] is working toward creating a unified toolchain for Python that
+includes `uv`.
 
 ### Caching
 
@@ -32,8 +32,8 @@ to avoid re-downloading dependencies and registry information.
 
 ### Dependency resolution
 
-[Dependency resolution] by `uv` is significantly faster than similar tools,
-especially with a warm cache.
+[Dependency resolution] by `uv` is significantly faster than `pip`,
+especially when being able to use cached dependencies.
 
 `uv` has capabilities that other tools lack, such as resolving environments for:
  - The lowest allowed versions of all or direct dependencies, and
@@ -58,19 +58,17 @@ dependency groups.
 
 ## Creating and managing Python environments
 
-<!--
 When using Python, we frequently install packages like Astropy
 using a command like `pip install astropy`.
 By default, this command will install Astropy into the default Python installation.
-This typically works well enough most of the time,
-but sometimes we'll run into a _package conflict_.
+This _usually_ works well,
+but occasionally we will run into a _package conflict_.
 
 Suppose PlasmaPy version `2024.10.0` requires `astropy < 7.0.0`,
 but SunPy `6.1.1` requires `astropy >= 7.0.0`.
 These versions of PlasmaPy and SunPy
 cannot be installed simultaneously!
-The way to get around this is to use virtual environments.
--->
+The way to get around this is to use _virtual environments_.
 
 A **virtual environment** is "an isolated space where you can work on
 your Python projects, separately from your system-installed Python."
@@ -117,7 +115,7 @@ which python
 This is still the same `python` as before because
 we still need to _activate_ the virtual environment.
 The output of `uv venv` provides the command to activate the virtual environment,
-which differs depending on which shell you're using
+which differs depending on which shell you're using:
 
 ```bash
 source .venv/bin/activate  # bash, sh, zsh
@@ -139,7 +137,7 @@ Because we activated the virtual environment, the `python` we are using is
 located at `.venv/bin/python` relative to the current directory.
 
 > [!NOTE]
-> The virtual environment will need to be re-activated if we open a new terminal.
+> The virtual environment needs to be re-activated if we open a new terminal.
 
 > [!TIP]
 > To avoid having to manually activate our default environment,
@@ -339,7 +337,7 @@ such as doing data analysis for an experiment.
 > with _no side effects_! ✅️
 -->
 
-## Creating a Python package with `uv` (if time)
+## Creating a Python package with `uv`
 
 Next let's create a Python **package**.
 Let's navigate up a directory
@@ -378,7 +376,7 @@ cat src/package/__init__.py
 > An `__init__.py` file is necessary for a directory to be imported by Python.
 
 > [!NOTE]
-> `py.typed` indicates that a package uses type hint annotations.
+> `py.typed` indicates that a package uses _type hint annotations_.
 
 Let's create a virtual environment for the project.
 
@@ -399,7 +397,7 @@ uv pip install -e .
 ```
 
 > [!NOTE]
-> The `-e` makes the installation "editable".
+> The `-e` makes the installation _editable_.
 
 If we run `python`, we can now import it!
 
