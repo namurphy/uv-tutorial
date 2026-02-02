@@ -36,13 +36,14 @@ to avoid re-downloading dependencies and registry information.
 especially when being able to use cached dependencies.
 
 `uv` has capabilities that other tools lack, such as resolving environments for:
- - The lowest allowed versions of all or direct dependencies, and
- - Releases made up until a certain date.
+
+- The lowest allowed versions of all or direct dependencies, and
+- Releases made up until a certain date.
 
 ### Universal lock files
 
 `requirements.txt`-style files do not always work across different
-versions of Python or different operating systems. 
+versions of Python or different operating systems.
 
 `uv` can create a _single_ lock file that fully defines an environment
 for multiple versions of Python, multiple operating systems, and all
@@ -412,11 +413,9 @@ If we run `python`, we can now import it!
 > [!IMPORTANT]
 > Thank you all for being wonderful people!
 
-[**toml**]: https://toml.io/en
-[markdown]: https://www.markdownguide.org
-[`bash`]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
-[`uv`]: https://astral.sh/uv
 [**installation instructions**]: https://docs.astral.sh/uv/getting-started/installation
+[astral]: https://astral.sh
 [caching strategy]: (https://docs.astral.sh/uv/concepts/cache)
 [dependency resolution]: https://docs.astral.sh/uv/concepts/resolution/
-[Astral]: https://astral.sh
+[markdown]: https://www.markdownguide.org
+[`uv`]: https://astral.sh/uv
