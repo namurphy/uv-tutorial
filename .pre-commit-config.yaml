@@ -23,12 +23,12 @@ repos:
   - id: check-yaml
 
 - repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0.37.2
+  rev: 0.39.0
   hooks:
   - id: check-github-workflows
 
 - repo: https://github.com/sirosen/texthooks
-  rev: 0.7.1
+  rev: 1.0.0
   hooks:
   - id: fix-smartquotes
   - id: fix-spaces
@@ -59,7 +59,7 @@ repos:
   - id: text-unicode-replacement-char
 
 - repo: https://github.com/codespell-project/codespell
-  rev: v2.4.2
+  rev: v2.4.3
   hooks:
   - id: codespell
     name: codespell (add false positives to pyproject.toml)
@@ -68,13 +68,13 @@ repos:
     - tomli
 
 - repo: https://github.com/crate-ci/typos
-  rev: v1
+  rev: v1.52.0
   hooks:
   - id: typos
     name: typos (add false positives to _typos.toml)
 
 - repo: https://github.com/abravalheri/validate-pyproject
-  rev: v0.25
+  rev: v0.27
   hooks:
   - id: validate-pyproject
     additional_dependencies: ['validate-pyproject-schema-store[all]']
